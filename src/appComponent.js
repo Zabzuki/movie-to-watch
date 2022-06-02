@@ -34,18 +34,13 @@ export class AppComponent extends HTMLElement {
   }
   async fetchMovies(pageNumber) {
     const movies = await this.movieService.getNewestMovies(pageNumber);
+
     console.log(movies);
     movies.results.map((movie) => {
       let listItem = document.createElement("list-item");
-      //const attr = document.createAttribute("data-title");
-
-      //listItem.dataset.title = movie.title;
-      //listItem.id = movie.results.id;
+      listItem.id = movie.id;
       listItem.movie = movie;
       this.listItems.appendChild(listItem);
-      console.log(listItem);
     });
-
-    console.log(movies);
   }
 }

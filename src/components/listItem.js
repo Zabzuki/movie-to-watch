@@ -4,8 +4,8 @@ liTemplate.innerHTML = `
     @import url('./src/components/listItem.css')
   </style>
   <div class="list-item">
-    <img class="li-img">poster_path</img>
-    <span class="li-title">Title</span>
+      <img class="li-img"></img>
+      <span class="li-title"></span>
     <button class="li-btn">
       <span class="btn-text">...</span>
     </button>
@@ -19,8 +19,15 @@ export class ListItem extends HTMLElement {
     this.shadowRoot.appendChild(liTemplate.content.cloneNode(true));
 
     this.listItem = this.shadowRoot.querySelector(".list-item");
-    //this.movie =
     this.listImg = this.listItem.querySelector(".li-img");
     this.listTitle = this.listItem.querySelector(".li-title");
+  }
+
+  set movie(movieObj) {
+    this.listImg.src = `https://image.tmdb.org/t/p/w300/${movieObj.backdrop_path}`;
+
+    this.listTitle.textContent = movieObj.title;
+
+    this.setAttribute("id", movieObj.id);
   }
 }

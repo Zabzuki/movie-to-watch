@@ -5,24 +5,27 @@
   align-items: center;
   border-radius: 5px;
   background-color: white;
-  width: 50vw;
-  height: 5vh;
+  width: 90vw;
+  height: 28vh;
   margin-bottom: 5px;
   border: solid 1px black;
 }
 
 .li-img {
-  width: 5px;
-  height: 5px;
-  color: red;
+  padding: 10px;
+  min-width: 150px;
+  border: solid 1px #c6c5c5;
+  border-radius: 3%;
+  margin: 0 30px 0 10px;
 }
 
 .li-title {
   display: flex;
   align-items: center;
+  flex: 1;
   color: black;
   font-family: HelveticaLTW05;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: bold;
 }
 
@@ -31,8 +34,9 @@
   align-items: center;
   justify-content: center;
   padding: auto;
-  width: 30px;
-  height: 30px;
+  margin-right: 40px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: solid 1px #00b1a4;
   background-color: white;
