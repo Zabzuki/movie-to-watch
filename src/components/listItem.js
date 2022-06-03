@@ -1,3 +1,5 @@
+// import { getTrailer } from "../services/movieService.js";
+
 const liTemplate = document.createElement("template");
 liTemplate.innerHTML = `
   <style>
@@ -7,9 +9,6 @@ liTemplate.innerHTML = `
     <div class="li-main">
       <img class="li-img"></img>
       <span class="li-title"></span>
-      <button class="li-btn">
-        <span class="btn-text">...</span>
-      </button>
     </div>
     <div class="content">
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
@@ -29,25 +28,34 @@ export class ListItem extends HTMLElement {
 
     this.listItem = this.shadowRoot.querySelector(".list-item");
     this.listImg = this.listItem.querySelector(".li-img");
-    this.listTitle = this.listItem.querySelector(".li-title");
-    this.listBtn = this.listItem.querySelector(".li-btn");
+    this.placeholder = this.listTitle =
+      this.listItem.querySelector(".li-title");
     this.toggleContent = this.listItem.querySelector(".content");
 
-    this.listBtn.addEventListener("click", () => this.toggle());
+    this.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      this.toggle(event.target.id);
+    });
   }
 
   set movie(movieObj) {
-    this.listImg.src = `https://image.tmdb.org/t/p/w300/${movieObj.backdrop_path}`;
+    this.listImg.src = `https://image.tmdb.org/t/p/w300${movieObj.backdrop_path}`;
+
+    if (this.listImg.src === `https://image.tmdb.org/t/p/w300null`) {
+      this.listImg.src = `https://static.vecteezy.com/system/resources/thumbnails/004/610/390/small/no-camera-stop-camera-icon-sign-free-vector.jpg`;
+    }
 
     this.listTitle.textContent = movieObj.title;
 
     this.setAttribute("id", movieObj.id);
   }
 
-  toggle = () => {
+  async toggle(movieId) {
+    // const trailer = await getTrailer(movieId);
+
     this.show = !this.show;
-    console.log(this.show);
     this.toggleContent.style.display = this.show ? "block" : "none";
     this.dispatchEvent(new CustomEvent("showChange", { detail: this.show }));
-  };
+  }
 }
