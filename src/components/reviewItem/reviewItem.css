@@ -1,0 +1,21 @@
+.review-item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: solid 1px #c6c5c5;
+}
+
+.review-author {
+  color: black;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: HelveticaLTW05;
+}
+
+.review-content {
+  color: black;
+  font-size: 14px;
+  font-family: HelveticaLTW05;
+}

@@ -44,10 +44,7 @@ export class AppComponent extends HTMLElement {
 
   async fetchMovies(pageNumber) {
     const movies = await getNewestMovies(pageNumber);
-    for (let i = 0; i < pageNumber; i++) {
-      let newPage = document.createElement("div");
-      newPage.classList.add("list-item");
-    }
+
     movies.results.map((movie) => {
       let listItem = document.createElement("list-item");
       listItem.id = movie.id;

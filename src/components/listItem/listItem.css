@@ -39,5 +39,18 @@
 .content {
   overflow: hidden;
   display: none;
-  height: 100px;
+  width: 88vw;
+  padding: 10px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.trailer {
+  min-width: 420px;
+  height: 315px;
+  margin-left: 10px;
 }
