@@ -1,7 +1,7 @@
 import {
   getTrailer,
   getReviews,
-  // getSimilarMovies,
+  getSimilarMovies,
 } from "../../services/movieService.js";
 
 const liTemplate = document.createElement("template");
@@ -19,6 +19,11 @@ liTemplate.innerHTML = `
         <div class="review-items"></div>  
         <iframe class="trailer"></iframe>
       </div>
+      <span class="similar-title">Similar Movies</span>
+      <div class="scroller">
+        <div class="similar-items"></div>
+        <div class="sentinel"></div>
+      </div>
     </div>
   </div>
 `;
@@ -33,18 +38,24 @@ export class ListItem extends HTMLElement {
 
     this.listItem = this.shadowRoot.querySelector(".list-item");
     this.reviewItems = this.listItem.querySelector(".review-items");
+    this.similarItems = this.listItem.querySelector(".similar-items");
 
     this.listImg = this.listItem.querySelector(".li-img");
-    this.placeholder = this.listTitle =
-      this.listItem.querySelector(".li-title");
+    this.listTitle = this.listItem.querySelector(".li-title");
+    this.mainContent = this.listItem.querySelector(".li-main");
     this.toggleContent = this.listItem.querySelector(".content");
 
     this.trailer = this.listItem.querySelector(".trailer");
 
-    this.addEventListener("click", (event) => {
+    this.similarTitle = this.listItem.querySelector(".similar-title");
+
+    this.scroller = this.listItem.querySelector(".scroller");
+    this.sentinel = this.listItem.querySelector(".sentinel");
+
+    this.mainContent.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
-      this.toggle(event.target.id);
+      this.toggle(this.id);
     });
   }
 
@@ -69,7 +80,7 @@ export class ListItem extends HTMLElement {
 
     this.renderTrailer(movieId);
     this.addReviewItem(movieId);
-    this.renderSimilar(movieId, 1);
+    this.renderSimilarMovie(movieId);
   }
 
   async renderTrailer(movieId) {
@@ -82,11 +93,6 @@ export class ListItem extends HTMLElement {
       }
     });
   }
-
-  // async renderSimilar(movieId, pageNumber) {
-  //   const videos = await getSimilarMovies(movieId, pageNumber);
-  //   // console.log(videos);
-  // }
 
   async addReviewItem(movieId) {
     const reviewsObj = await getReviews(movieId);
@@ -104,5 +110,16 @@ export class ListItem extends HTMLElement {
       reviewItem.review = {};
       this.reviewItems.appendChild(reviewItem);
     }
+  }
+
+  async renderSimilarMovie(movieId) {
+    const similarMoviesObj = await getSimilarMovies(movieId);
+    const similarMovies = similarMoviesObj.results;
+
+    similarMovies.map((movie) => {
+      let similarItem = document.createElement("similar-item");
+      similarItem.movie = movie;
+      this.similarItems.appendChild(similarItem);
+    });
   }
 }

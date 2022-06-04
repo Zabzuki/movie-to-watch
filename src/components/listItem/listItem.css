@@ -54,3 +54,31 @@
   height: 315px;
   margin-left: 10px;
 }
+
+.similar-items {
+  display: flex;
+  flex-direction: row;
+  padding-top: 10px;
+}
+
+.similar-title {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  font-weight: bold;
+  font-family: HelveticaLTW05;
+  font-size: 20px;
+}
+
+.scroller {
+  width: 86.5vw;
+  overflow-x: scroll;
+  padding: 10px;
+  border-radius: 0.4%;
+  border: solid 1px #c6c5c5;
+}
+
+.sentinel {
+  width: 1px;
+  height: 1px;
+}

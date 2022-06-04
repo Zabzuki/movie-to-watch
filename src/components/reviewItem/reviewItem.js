@@ -5,8 +5,8 @@ reviewTemplate.innerHTML = `
     @import url('./src/components/reviewItem/reviewItem.css')
   </style>
   <div class="review-item">
-        <span class="review-author"></span>
-        <span class="review-content"></span>
+    <span class="review-author"></span>
+    <span class="review-content"></span>
   </div>
 `;
 
