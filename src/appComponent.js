@@ -7,7 +7,7 @@ appTemplate.innerHTML = `
         @import url('./src/appComponent.css')
     </style>
     <div class="list-container">
-        <span class="title" >Latest Movies</span>
+        <span class="title" >MovieRama</span>
         <form class="search-container">
             <input type="text" class="search-input" name="movieName" placeholder="Search">
             </input>
@@ -50,28 +50,25 @@ export class AppComponent extends HTMLElement {
   }
 
   async fetchMovies() {
-    const movies = await getNewestMovies(this.state.newestPageCounter);
+    const results = await getNewestMovies(this.state.newestPageCounter);
     this.state.newestPageCounter++;
-
-    movies.results.map((movie) => {
-      let listItem = document.createElement("list-item");
-      listItem.id = movie.id;
-      listItem.movie = movie;
-      this.listItems.appendChild(listItem);
-    });
-    this.listItems.appendChild(this.sentinel);
+    const movies = results.results;
+    this.loopMovies(movies);
   }
 
   async handleSearch(event) {
     event.preventDefault();
     tearDownScrollListeners(this.state.scrollListenerObserver, this.sentinel);
 
-    this.listItems.innerHTML = "";
-    this.scroller.style.visibility = "hidden";
-
     const data = new FormData(event.target);
     const formJSON = Object.fromEntries(data.entries());
     const { movieName } = formJSON;
+
+    if (!movieName) return alert("Please search for a movie");
+
+    this.listItems.innerHTML = "";
+    this.scroller.style.visibility = "hidden";
+
     await this.fetchSearchMovies(movieName);
 
     this.state.scrollListenerObserver = setUpScrollListeners(
@@ -83,13 +80,19 @@ export class AppComponent extends HTMLElement {
   }
 
   async fetchSearchMovies(movieName) {
-    const movies = await getSearchResults(
+    const results = await getSearchResults(
       movieName,
       this.state.searchPageCounter
     );
+    const movies = results.results;
     this.state.searchPageCounter++;
     this.scroller.style.visibility = "visible";
-    movies.results.map((movie) => {
+
+    this.loopMovies(movies);
+  }
+
+  loopMovies(movies) {
+    movies.map((movie) => {
       let listItem = document.createElement("list-item");
       listItem.id = movie.id;
       listItem.movie = movie;
