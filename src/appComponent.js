@@ -50,10 +50,14 @@ export class AppComponent extends HTMLElement {
   }
 
   async fetchMovies() {
-    const results = await getNewestMovies(this.state.newestPageCounter);
-    this.state.newestPageCounter++;
-    const movies = results.results;
-    this.loopMovies(movies);
+    try {
+      const results = await getNewestMovies(this.state.newestPageCounter);
+      this.state.newestPageCounter++;
+      const movies = results.results;
+      this.renderMovies(movies);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async handleSearch(event) {
@@ -68,30 +72,42 @@ export class AppComponent extends HTMLElement {
 
     this.listItems.innerHTML = "";
     this.scroller.style.visibility = "hidden";
+    this.state.searchPageCounter = 1;
 
-    await this.fetchSearchMovies(movieName);
+    try {
+      await this.fetchSearchMovies(movieName);
 
-    this.state.scrollListenerObserver = setUpScrollListeners(
-      this,
-      this.sentinel,
-      this.fetchSearchMovies,
-      movieName
-    );
+      this.state.scrollListenerObserver = setUpScrollListeners(
+        this,
+        this.sentinel,
+        this.fetchSearchMovies,
+        movieName
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async fetchSearchMovies(movieName) {
-    const results = await getSearchResults(
-      movieName,
-      this.state.searchPageCounter
-    );
-    const movies = results.results;
-    this.state.searchPageCounter++;
-    this.scroller.style.visibility = "visible";
+    try {
+      const results = await getSearchResults(
+        movieName,
+        this.state.searchPageCounter
+      );
+      const movies = results.results;
+      this.state.searchPageCounter++;
+      this.scroller.style.visibility = "visible";
 
-    this.loopMovies(movies);
+      this.renderMovies(movies);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  loopMovies(movies) {
+  renderMovies(movies) {
+    if (!movies.length) {
+      tearDownScrollListeners(this.state.scrollListenerObserver, this.sentinel);
+    }
     movies.map((movie) => {
       let listItem = document.createElement("list-item");
       listItem.id = movie.id;

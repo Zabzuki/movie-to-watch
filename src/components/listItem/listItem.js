@@ -97,47 +97,59 @@ export class ListItem extends HTMLElement {
   }
 
   async renderTrailer(movieId) {
-    const trailerObj = await getTrailer(movieId);
-    const trailers = trailerObj.results;
+    try {
+      const trailerObj = await getTrailer(movieId);
+      const trailers = trailerObj.results;
 
-    trailers.map((trailer) => {
-      if (trailer["name"] === "Official Trailer") {
-        this.trailer.src = `https://www.youtube.com/embed/${trailer["key"]}`;
-      }
-    });
+      trailers.map((trailer) => {
+        if (trailer["name"] === "Official Trailer") {
+          this.trailer.src = `https://www.youtube.com/embed/${trailer["key"]}`;
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async addReviewItem(movieId) {
-    const reviewsObj = await getReviews(movieId);
-    const reviews = reviewsObj.results;
-    const trimmedReviews = reviews.slice(0, 2);
+    try {
+      const reviewsObj = await getReviews(movieId);
+      const reviews = reviewsObj.results;
+      const trimmedReviews = reviews.slice(0, 2);
 
-    trimmedReviews.map((review) => {
-      let reviewItem = document.createElement("review-item");
-      reviewItem.review = review;
-      this.reviewItems.appendChild(reviewItem);
-    });
+      trimmedReviews.map((review) => {
+        let reviewItem = document.createElement("review-item");
+        reviewItem.review = review;
+        this.reviewItems.appendChild(reviewItem);
+      });
 
-    if (!trimmedReviews.length) {
-      let reviewItem = document.createElement("review-item");
-      reviewItem.review = {};
-      this.reviewItems.appendChild(reviewItem);
+      if (!trimmedReviews.length) {
+        let reviewItem = document.createElement("review-item");
+        reviewItem.review = {};
+        this.reviewItems.appendChild(reviewItem);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 
   async renderSimilarMovie(movieId) {
-    const similarMoviesObj = await getSimilarMovies(
-      movieId,
-      this.state.similarMoviesCounter
-    );
-    const similarMovies = similarMoviesObj.results;
-    this.state.similarMoviesCounter++;
+    try {
+      const similarMoviesObj = await getSimilarMovies(
+        movieId,
+        this.state.similarMoviesCounter
+      );
+      const similarMovies = similarMoviesObj.results;
+      this.state.similarMoviesCounter++;
 
-    similarMovies.map((movie) => {
-      let similarItem = document.createElement("similar-item");
-      similarItem.movie = movie;
-      this.similarItems.appendChild(similarItem);
-    });
-    this.similarItems.appendChild(this.sentinel);
+      similarMovies.map((movie) => {
+        let similarItem = document.createElement("similar-item");
+        similarItem.movie = movie;
+        this.similarItems.appendChild(similarItem);
+      });
+      this.similarItems.appendChild(this.sentinel);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
