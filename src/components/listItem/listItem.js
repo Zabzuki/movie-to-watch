@@ -3,6 +3,7 @@ import {
   getReviews,
   getSimilarMovies,
 } from "../../services/movieService.js";
+import { setUpScrollListeners } from "../../utils.js";
 
 const liTemplate = document.createElement("template");
 liTemplate.innerHTML = `
@@ -33,8 +34,12 @@ export class ListItem extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(liTemplate.content.cloneNode(true));
-    this.show = false;
-    this.hasRendered = false;
+    this.state = {
+      show: false,
+      hasRendered: false,
+      similarMoviesCounter: 1,
+      scrollListenerObserver: null,
+    };
 
     this.listItem = this.shadowRoot.querySelector(".list-item");
     this.reviewItems = this.listItem.querySelector(".review-items");
@@ -71,16 +76,24 @@ export class ListItem extends HTMLElement {
   }
 
   toggle(movieId) {
-    this.show = !this.show;
-    this.dispatchEvent(new CustomEvent("showChange", { detail: this.show }));
-    this.toggleContent.style.display = this.show ? "block" : "none";
+    this.state.show = !this.state.show;
+    this.dispatchEvent(
+      new CustomEvent("showChange", { detail: this.state.show })
+    );
+    this.toggleContent.style.display = this.state.show ? "block" : "none";
 
-    if (this.hasRendered) return;
-    this.hasRendered = true;
+    if (this.state.hasRendered) return;
+    this.state.hasRendered = true;
 
     this.renderTrailer(movieId);
     this.addReviewItem(movieId);
-    this.renderSimilarMovie(movieId);
+
+    this.state.scrollListenerObserver = setUpScrollListeners(
+      this,
+      this.sentinel,
+      this.renderSimilarMovie,
+      movieId
+    );
   }
 
   async renderTrailer(movieId) {
@@ -113,13 +126,18 @@ export class ListItem extends HTMLElement {
   }
 
   async renderSimilarMovie(movieId) {
-    const similarMoviesObj = await getSimilarMovies(movieId);
+    const similarMoviesObj = await getSimilarMovies(
+      movieId,
+      this.state.similarMoviesCounter
+    );
     const similarMovies = similarMoviesObj.results;
+    this.state.similarMoviesCounter++;
 
     similarMovies.map((movie) => {
       let similarItem = document.createElement("similar-item");
       similarItem.movie = movie;
       this.similarItems.appendChild(similarItem);
     });
+    this.similarItems.appendChild(this.sentinel);
   }
 }

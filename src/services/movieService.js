@@ -11,19 +11,6 @@ export const getNewestMovies = async (pageNumber) => {
   }
 };
 
-export const getMovie = async (movieId) => {
-  try {
-    const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=bc50218d91157b1ba4f142ef7baaa6a0`;
-    let response = await fetch(url, {
-      method: "GET",
-    });
-    response = await response.json();
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 export const getTrailer = async (movieId) => {
   try {
     const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=bc50218d91157b1ba4f142ef7baaa6a0`;
@@ -50,9 +37,9 @@ export const getReviews = async (movieId) => {
   }
 };
 
-export const getSimilarMovies = async (movieId) => {
+export const getSimilarMovies = async (movieId, pageNumber) => {
   try {
-    const url = `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=bc50218d91157b1ba4f142ef7baaa6a0`;
+    const url = `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=bc50218d91157b1ba4f142ef7baaa6a0&page=${pageNumber}`;
     let response = await fetch(url, {
       method: "GET",
     });
