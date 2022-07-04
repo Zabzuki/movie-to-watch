@@ -1,0 +1,22 @@
+.similar-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 5px;
+  margin-left: 5px;
+  border: solid 1px black;
+}
+
+.similar-img {
+  min-width: 150px;
+}
+
+.similar-title {
+  display: flex;
+  align-items: center;
+  font-family: HelveticaLTW05;
+
+  font-size: 18px;
+  height: 30px;
+}
