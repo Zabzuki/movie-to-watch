@@ -7,7 +7,7 @@ appTemplate.innerHTML = `
         @import url('./src/appComponent.css')
     </style>
     <div class="list-container">
-        <span class="title" >MovieRama</span>
+        <span class="title" >Latest Movies</span>
         <form class="search-container">
             <input type="text" class="search-input" name="movieName" placeholder="Search">
             </input>

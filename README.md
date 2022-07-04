@@ -1,19 +1,14 @@
-# MovieRama
-
-## Introduction
-
-Decided to use web components for this project as an excuse to learn a new technology and how web components work. Working in the past mostly with ReactJS, this task was a good chance to practice more in vanilla JavaScript.
-Because of the complexity of the task I devided the project into tasks tracked in Github.
+# Movie to watch
 
 ## How to install and run
 
-1. Download the example [or clone the repo](https://github.com/Zabzuki/movieRama)
+1. Download the example [or clone the repo](https://github.com/Zabzuki/movie-to-watch)
 2. Open `index.html` document and **Go Live** ([Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension on VSCode).
 3. Ready to use!
 
 ## Description
 
-movieRama displays movies playing in the theaters, that are fetched from [themoviedb.org API](https://developers.themoviedb.org/3) in a friendly way. Users are able to browse through the latest movies using **inifinite scrolling** without waiting any new HTTP GET request, to render content.
+`movie-to-watch` display movies playing in the theaters, that are fetched from [themoviedb.org API](https://developers.themoviedb.org/3) in a friendly way. Users are able to browse through the latest movies using **inifinite scrolling** without waiting any new HTTP GET request, to render content.
 Every movie is clickable where the `<div>` content extends in an performant way, where details like **trailer, reviews, similar movies** are presented (if they exist).
 There is also added an `<input>` field where user can search for specific movies.
 
