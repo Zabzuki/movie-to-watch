@@ -2,6 +2,8 @@
 
 A movie browser built with vanilla-JS Web Components, backed by the TMDB API.
 
+![Movie browser demo](docs/media/movie-to-watch-demo.gif)
+
 ## Features
 
 - Browse movies now playing in theaters, with infinite scroll (no manual paging).
