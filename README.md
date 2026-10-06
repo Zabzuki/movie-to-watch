@@ -4,6 +4,8 @@ A movie browser built with vanilla-JS Web Components, backed by the TMDB API.
 
 ![Movie browser demo](docs/media/movie-to-watch-demo.gif)
 
+*Scrolling loads more now-playing movies (infinite scroll); clicking a movie expands it to show its trailer and reviews; the search box finds movies by title.*
+
 ## Features
 
 - Browse movies now playing in theaters, with infinite scroll (no manual paging).
