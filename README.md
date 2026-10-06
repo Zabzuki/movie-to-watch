@@ -161,3 +161,7 @@ export const tearDownScrollListeners = (intersectionObserver, sentinel) => {
 - [How To Do Infinite Scrolling the Right Way](https://betterprogramming.pub/how-to-do-infinite-scrolling-the-right-way-a64e3463b0e3)
 - [IntersectionObserver Sample](https://googlechrome.github.io/samples/intersectionobserver/)
 - [w3schools How TO - Collapse](https://www.w3schools.com/howto/howto_js_collapsible.asp)
+
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file.
