@@ -1,10 +1,24 @@
 # Movie to watch
 
+A movie browser built with vanilla-JS Web Components, backed by the TMDB API.
+
+## Features
+
+- Browse movies now playing in theaters, with infinite scroll (no manual paging).
+- Search for any movie by title, also with infinite scroll.
+- Expand any movie to see its trailer, reviews and similar movies (when available).
+
+## Requirements
+
+- A free [TMDB API key](https://www.themoviedb.org/settings/api).
+- A modern browser (uses Web Components and `IntersectionObserver`).
+
 ## How to install and run
 
-1. Download the example [or clone the repo](https://github.com/Zabzuki/movie-to-watch)
-2. Open `index.html` document and **Go Live** ([Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension on VSCode).
-3. Ready to use!
+1. Download the example [or clone the repo](https://github.com/Zabzuki/movie-to-watch).
+2. Get a free API key from [TMDB](https://www.themoviedb.org/settings/api) and set it as `API_KEY` at the top of [`src/services/movieService.js`](./src/services/movieService.js).
+3. Open `index.html` and **Go Live** ([Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension on VSCode).
+4. Ready to use!
 
 ## Description
 
